@@ -97,17 +97,20 @@ exports.register = async (req, res) => {
 };
 
 exports.activateAccount = async (req, res) => {
-  const { token } = req.body;
-  const user = jwt.verify(token, JWT_TOKEN_SECRET);
-  console.log(user);
-  const check = await User.findById(user.id);
-  if (check.verified == true) {
-    return res.status(400).json({ message: "Email already activated" });
-  } else {
-    await User.findByIdAndUpdate(user.id, { verified: true });
-    return res
-      .status(200)
-      .json({ message: "Account has been activated successfully" });
+  try {
+    const { token } = req.body;
+    const user = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
+    const check = await User.findById(user.id);
+    if (check.verified == true) {
+      return res.status(400).json({ message: "Email already activated" });
+    } else {
+      await User.findByIdAndUpdate(user.id, { verified: true });
+      return res
+        .status(200)
+        .json({ message: "Account has been activated successfully" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -137,7 +140,31 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.auth= (req,res)=>{
+exports.auth = (req, res) => {
   console.log(req.user);
   res.json("Welcome from Auth");
-}
+};
+
+exports.sendVerification = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const user = await User.findById(id);
+    if (user.verified === true) {
+      return res
+        .status(400)
+        .json({ message: "This account is already activated." });
+    } else {
+      const emailVerificationToken = generateToken(
+        { id: user._id.toString() },
+        "2d"
+      );
+      const url = `${BASE_URL}/activate/${emailVerificationToken}`;
+      sendVerificationEmail(user.email, user.first_name, url);
+      return res
+        .status(200)
+        .json({ message: "Email verification link has been sent." });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

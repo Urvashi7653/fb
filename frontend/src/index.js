@@ -12,15 +12,6 @@ import rootReducer from "./reducer";
 const store = createStore(rootReducer,composeWithDevTools());
 // //Redux is a predictable state container for JavaScript apps. As the application grows, it becomes difficult to keep it organized and maintain data flow. Redux solves this problem by managing application’s state with a single global object called Store.
 
-// ReactDOM.render(
-//   <Provider store = {store}>
-//   <React.StrictMode>
-//     <AppWrapper />
-//   </React.StrictMode>
-//   </Provider>,
-//   document.getElementById("root")
-// );
-
 ReactDOM.render(
   <Provider store={store}>
     <Router>
