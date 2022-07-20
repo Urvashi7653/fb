@@ -3,9 +3,7 @@ const cors = require("cors");
 const { readdirSync } = require("fs");
 const env = require("dotenv");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 env.config();
-//const userRoutes = require("./routes/user.js");
 
 const app = express();
 
