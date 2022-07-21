@@ -17,6 +17,7 @@
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
+    /* If we use object-fit: cover; the image keeps its aspect ratio and fills the given dimension. The image will be clipped to fit: */
   }
   .open_post {
     background: var(--bg-forth);

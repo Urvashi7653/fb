@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
-//import Code from "../../../../backend/models/Code";
 import { LogInInput } from "../../components/inputs/logininput";
 export default function CodeVerification({
   code,
