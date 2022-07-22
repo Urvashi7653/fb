@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import Picker from "emoji-picker-react";
+import img1 from "../../img/1.jpg";
+import img2 from "../../img/2.jpg";
+import img3 from "../../img/3.jpg";
+import img4 from "../../img/4.jpg";
+import img5 from "../../img/5.jpg";
+import img6 from "../../img/6.jpg";
+import img7 from "../../img/7.jpg";
+import img8 from "../../img/8.jpg";
+import img9 from "../../img/9.jpg";
 
 export default function EmojiPickerBackgrounds({
   text,
@@ -8,7 +17,8 @@ export default function EmojiPickerBackgrounds({
   type2,
   background,
   setBackground,
-}) {
+})
+ {
   const [picker, setPicker] = useState(false);
   const [showBgs, setShowBgs] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
@@ -18,6 +28,8 @@ export default function EmojiPickerBackgrounds({
   useEffect(() => {
     textRef.current.selectionEnd = cursorPosition;
   }, [cursorPosition]);
+
+
   const handleEmoji = (e, { emoji }) => {
     const ref = textRef.current;
     ref.focus();
@@ -28,17 +40,19 @@ export default function EmojiPickerBackgrounds({
     setCursorPosition(start.length + emoji.length);
   };
   const postBackgrounds = [
-    "../../../images/postbackgrounds/1.jpg",
-    "../../../images/postbackgrounds/2.jpg",
-    "../../../images/postbackgrounds/3.jpg",
-    "../../../images/postbackgrounds/4.jpg",
-    "../../../images/postbackgrounds/5.jpg",
-    "../../../images/postbackgrounds/6.jpg",
-    "../../../images/postbackgrounds/7.jpg",
-    "../../../images/postbackgrounds/8.jpg",
-    "../../../images/postbackgrounds/9.jpg",
+    img1,
+    img2,
+    img3,
+    img4,
+    img5,
+    img6,
+    img7,
+    img8,
+    img9,
   ];
-  const backgroundHanlder = (i) => {
+
+  //correct spelling
+  const backgroundHandler = (i) => {
     bgRef.current.style.backgroundImage = `url(${postBackgrounds[i]})`;
     setBackground(postBackgrounds[i]);
     bgRef.current.classList.add("bgHandler");
@@ -55,7 +69,7 @@ export default function EmojiPickerBackgrounds({
           ref={textRef}
           maxLength="250"
           value={text}
-          placeholder={`What's on your mind, ${user.first_name}`}
+          placeholder={`What's in your mind, ${user.first_name}`}
           className={`post_input ${type2 ? "input2" : ""}`}
           onChange={(e) => setText(e.target.value)}
           style={{
@@ -100,7 +114,7 @@ export default function EmojiPickerBackgrounds({
                 key={i}
                 alt=""
                 onClick={() => {
-                  backgroundHanlder(i);
+                  backgroundHandler(i);
                 }}
               />
             ))}

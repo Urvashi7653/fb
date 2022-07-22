@@ -9,7 +9,7 @@ import Story from "../../components/home/stories/Story";
 import useClickOutside from "../../helpers/clickOutside";
 import "./style.css"
 
-export default function Home() {
+export default function Home({setVisible}) {
   const { user } = useSelector((state) => ({ ...state }));
 
   return (
@@ -20,7 +20,7 @@ export default function Home() {
         <div className="home_middle">
           <Stories/>
           {user.verified ===false && <SendVerification user = {user}/>}
-          <CreatePost/>
+          <CreatePost user = {user} setVisible= {setVisible}/>
           </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ export default function ImagePreview({
   setError,
 }) {
   const imageInputRef = useRef(null);
+
   const handleImages = (e) => {
     let files = Array.from(e.target.files);
     files.forEach((img) => {
@@ -22,12 +23,12 @@ export default function ImagePreview({
         img.type !== "image/gif"
       ) {
         setError(
-          `${img.name} format is unsupported ! only Jpeg, Png, Webp, Gif are allowed.`
+          `${img.name} This type of image format is unsupported ! Only Jpeg, Png, Webp, Gif are allowed.`
         );
         files = files.filter((item) => item.name !== img.name);
         return;
-      } else if (img.size > 1024 * 1024) {
-        setError(`${img.name} size is too large max 5mb allowed.`);
+      } else if (img.size > 1024 * 1024*5) {
+        setError(`${img.name} is too large. Max 5mb allowed.`);
         files = files.filter((item) => item.name !== img.name);
         return;
       } else {
@@ -126,7 +127,7 @@ export default function ImagePreview({
           <div className="add_circle">
             <i className="phone_icon"></i>
           </div>
-          <div className="mobile_text">Add phots from your mobile device.</div>
+          <div className="mobile_text">Add photos from your mobile device.</div>
           <span className="addphone_btn">Add</span>
         </div>
       </div>
