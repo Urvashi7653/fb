@@ -1,10 +1,10 @@
 const express = require("express");
-const { uploadImages } = require("../controllers/upload.js");
+const { uploadImages } = require("../controllers/upload.js");  // not a default import
 const router = express.Router();
-const imageUpload = require("../middlewares/imageUpload.js")
-//const {authUser} = require("../middlewares/auth.js")
 
-//router.post("/uploadImages",authUser,imageUpload, uploadImages);
+//default import
+const imageUpload = require("../middlewares/imageUpload.js");
+
 router.post("/uploadImages",imageUpload, uploadImages);
 
-module.exports = router;
+module.exports = router; 

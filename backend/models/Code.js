@@ -4,7 +4,7 @@ const { ObjectId } = mongoose.Schema;
 
 const codeSchema = new mongoose.Schema({
   code: {
-    type: String,
+    type: String,       //number will not consider 0
     required: true,
   },
   user: {
@@ -14,4 +14,6 @@ const codeSchema = new mongoose.Schema({
   },
 });
 
+
+//default export
 module.exports = mongoose.model("Code", codeSchema);

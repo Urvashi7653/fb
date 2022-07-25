@@ -17,6 +17,8 @@ let check = await User.findOne({username})
 if(check){
     //change username
     username += (+new Date()*Math.random()).toString().substring(0,1);
+    // +new Date() .Dates written as numbers, specifies the number of milliseconds since January 1, 1970, 00:00:00.
+ // substring(0,1) implies index 0 included , 1 not included.
     a = true;
 }else{
     a = false

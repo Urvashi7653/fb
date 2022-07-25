@@ -1,10 +1,14 @@
 const fs = require("fs");
+
+//default export
 module.exports = async (req, res, next) => {
   try {
     if (!req.files || Object.values(req.files).flat().length === 0) {
       return res.status(400).json({ message: "No files selected!" });
     }
     let files = Object.values(req.files).flat();
+
+    //The forEach() method calls a function for each element in an array.
     files.forEach((file) => {
       if (
         file.mimetype !== "image/jpeg" &&

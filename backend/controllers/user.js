@@ -11,7 +11,7 @@ const { generateToken } = require("../helpers/tokens");
 const { sendVerificationEmail, sendResetCode } = require("../helpers/mailer");
 const { BASE_URL, JWT_TOKEN_SECRET } = process.env;
 const jwt = require("jsonwebtoken");
-const { findOne } = require("../models/User");
+//const { findOne } = require("../models/User");
 const generateCode = require("../helpers/generateCode");
 
 exports.register = async (req, res) => {
@@ -101,10 +101,10 @@ exports.register = async (req, res) => {
 
 exports.activateAccount = async (req, res) => {
   try {
-    const { token } = req.body;
-    const user = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
+    const { token } = req.body;  //FROM WHERE THIS IS COMING
+    const user = jwt.verify(token, JWT_TOKEN_SECRET);
     const check = await User.findById(user.id);
-    if (check.verified == true) {
+    if (check.verified === true) {
       return res.status(400).json({ message: "Email already activated" });
     } else {
       await User.findByIdAndUpdate(user.id, { verified: true });
@@ -202,7 +202,7 @@ exports.sendResetPasswordCode = async (req, res) => {
     }).save();
     sendResetCode(user.email, user.first_name, code);
     return res.status(200).json({
-      message: "Email reset code has been sent to your email",
+      message: "Password reset code has been sent to your email",
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -386,20 +386,24 @@ exports.acceptRequest = async (req, res) => {
 };
 
 //MODIFIED
-exports.deleteRequest = async(req,res)=>{
+exports.deleteRequest = async (req, res) => {
   try {
-    if(req.user.id!==req.params.id){
-   const receiver = User.findById(req.user.id);
-   const sender = User.findById(req.params.id);
-   if(receiver.requests.includes(sender._id)){
-    await receiver.updateOne({
-      $pull:{ requests:sender._id}
-    })
-   }
-    }else{
-      return res.status(400).json({message:"You can't reject request from yourself"})
+    if (req.user.id !== req.params.id) {
+      const receiver = User.findById(req.user.id);
+      const sender = User.findById(req.params.id);
+      if (receiver.requests.includes(sender._id)) {
+        await receiver.updateOne({
+          $pull: { requests: sender._id }
+        });
+        res.json({ message: "Friend request rejected" });
+      }
+      else{
+        res.json({message: "Request does not exist!"})
+      }
+    } else {
+      return res.status(400).json({ message: "You can't reject request from yourself" })
     }
   } catch (error) {
-    return res.status(500).json({message:error.message})
+    return res.status(500).json({ message: error.message })
   }
 }

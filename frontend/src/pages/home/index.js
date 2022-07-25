@@ -6,10 +6,11 @@ import LeftHome from "../../components/home/left";
 import SendVerification from "../../components/home/sendVerification";
 import Stories from "../../components/home/stories";
 import Story from "../../components/home/stories/Story";
+import Post from "../../components/post";
 import useClickOutside from "../../helpers/clickOutside";
 import "./style.css"
 
-export default function Home({setVisible}) {
+export default function Home({setVisible,posts}) {
   const { user } = useSelector((state) => ({ ...state }));
 
   return (
@@ -21,6 +22,11 @@ export default function Home({setVisible}) {
           <Stories/>
           {user.verified ===false && <SendVerification user = {user}/>}
           <CreatePost user = {user} setVisible= {setVisible}/>
+          <div className="posts">
+          {posts.map((post) => (
+            <Post key={post._id} post={post} user={user} />
+          ))}
+        </div>
           </div>
       </div>
     </div>

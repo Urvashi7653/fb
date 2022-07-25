@@ -1,3 +1,9 @@
+//SVG images do not lose their quality when zoomed or resized.
+// They can be created and edited with an IDE or text editor.
+// They are accessible and animatable.
+// They have a small file size and are highly scalable.
+// And they can be searched, indexed, scripted, and compressed.
+
 import React from 'react';
 
 function ArrowDown1() {

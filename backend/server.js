@@ -13,10 +13,11 @@ app.use(express.json())
 app.use(fileUpload({
   useTempFiles:true
 }))
+
 //ROUTES
 //const userRoutes = require("./routes/user.js");
-//app.use("/",userRoutes)
-readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r)));
+//app.use("/",userRoutes) 
+readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r))); //string concatenation
 
 //DATABASE
 mongoose

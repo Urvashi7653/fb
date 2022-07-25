@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema(
     first_name: {
       type: String,
       required: [true, "First name is required"],
-      trim: true,
+      trim: true,      // trim to remove white spaces
       text: true,
     },
 

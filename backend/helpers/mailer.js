@@ -12,7 +12,7 @@ exports.sendVerificationEmail = (email, name, url) => {
   });
   
   const accessToken = auth.getAccessToken();
-  const stmp = nodemailer.createTransport({
+  const smtp = nodemailer.createTransport({
     // simple mail transfer protocol
     service: "gmail",
     auth: {
@@ -29,6 +29,7 @@ exports.sendVerificationEmail = (email, name, url) => {
     from: EMAIL,
     to: email,
     subject: "Facebook-clone email verification",
+    // using html compressor
     html: `<div style="max-width:700px;margin-bottom:1rem;display:flex;align-items:center;gap:10px;font-family:Roboto;font-weight:600;color:#3b5998">
         <span> Action require:Activate your account. </span>
         </div>
@@ -46,7 +47,7 @@ exports.sendVerificationEmail = (email, name, url) => {
         </div>`,
   };
 
-  stmp.sendMail(mailOptions, (err, res) => {
+  smtp.sendMail(mailOptions, (err, res) => {
     if (err) console.log(err);
     else return res;
   });
@@ -57,7 +58,7 @@ exports.sendResetCode = (email, name, code) => {
     refresh_token: REFRESH_TOKEN,
   });
   const accessToken = auth.getAccessToken();
-  const stmp = nodemailer.createTransport({
+  const smtp = nodemailer.createTransport({
     service: "gmail",
     auth: {
       type: "OAuth2",
@@ -75,7 +76,7 @@ exports.sendResetCode = (email, name, code) => {
     subject: "Reset facebook password",
     html: `<div style="max-width:700px;margin-bottom:1rem;display:flex;align-items:center;gap:10px;font-family:Roboto;font-weight:600;color:#3b5998"><img src="https://res.cloudinary.com/dmhcnhtng/image/upload/v1645134414/logo_cs1si5.png" alt="" style="width:30px"><span>Action require : Change your password</span></div><div style="padding:1rem 0;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;color:#141823;font-size:17px;font-family:Roboto"><span>Hello ${name}</span><div style="padding:20px 0"><span style="padding:1.5rem 0">You recently tried to change password of facebook-clone app. Use the below code to change your password.</span></div><a  style="width:200px;padding:10px 15px;background:#4c649b;color:#fff;text-decoration:none;font-weight:600">${code}</a><br><div style="padding-top:20px"></div></div>`,
   };
-  stmp.sendMail(mailOptions, (err, res) => {
+  smtp.sendMail(mailOptions, (err, res) => {
     if (err) return err;
     return res;
   });
