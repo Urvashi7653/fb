@@ -9,7 +9,8 @@ import Activate from "./pages/home/activate";
 import Reset from "./pages/reset";
 import CreatePostPopup from "./components/createPostPopup";
 import { useEffect, useReducer, useState } from "react";
-import axios from "axios"
+import axios from "axios";
+
 function reducer(state, action) {
   switch (action.type) {
     case "POSTS_REQUEST":
