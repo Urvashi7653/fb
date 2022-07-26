@@ -171,7 +171,7 @@ justify-content: center;
 margin: 20px 0 10px 0;
 }
 .blur{
-    /* position: fixed; */
+     position: fixed; 
     background: rgba(255,255,255,0.768);
     z-index:1;
   }

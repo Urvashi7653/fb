@@ -14,7 +14,7 @@ export default function Post({ post, user }) {
     <div className="post">
       <div className="post_header">
         <Link
-          to={`/profile/${post.user.username}`}
+          to={`/profile/${post.user.username}`} //we can use post.user.username bcz we populate user in post.js (controllers)
           className="post_header_left"
         >
           <img src={post.user.picture} alt="" />
@@ -84,10 +84,10 @@ export default function Post({ post, user }) {
         </>
       )}
       <div className="post_infos">
-        <div className="reacts_count">
+        {/* <div className="reacts_count">
           <div className="reacts_count_imgs"></div>
           <div className="reacts_count_num"></div>
-        </div>
+        </div> */}
         <div className="to_right">
           <div className="comments_count">13 comments</div>
           <div className="share_count">1 share</div>

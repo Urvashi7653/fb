@@ -1,13 +1,10 @@
-import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import CreatePost from "../../components/createPost";
 import Header from "../../components/header";
 import LeftHome from "../../components/home/left";
 import SendVerification from "../../components/home/sendVerification";
 import Stories from "../../components/home/stories";
-import Story from "../../components/home/stories/Story";
 import Post from "../../components/post";
-import useClickOutside from "../../helpers/clickOutside";
 import "./style.css"
 
 export default function Home({setVisible,posts}) {

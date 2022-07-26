@@ -26,7 +26,6 @@ export default function LoginForm({ setVisible }) {
   });
 
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const loginSubmit = async () => {
     try {
@@ -47,10 +46,14 @@ export default function LoginForm({ setVisible }) {
       setError(error.response.data.message);
     }
   };
+
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
+    //console.log(e.target);
+    //<input class="" type="password" name="password" placeholder="Password" value="123456">
     setLogin({ ...login, [name]: value });
   };
+
   return (
     <div className="login">
       <div className="login_wrapper">
@@ -58,7 +61,6 @@ export default function LoginForm({ setVisible }) {
           <div className="login_1">
             <img src="../../icons/facebook.svg" alt=""></img>
             <span>
-              {" "}
               Facebook allows to you to connect and share with people in your
               life.
             </span>
@@ -79,7 +81,7 @@ export default function LoginForm({ setVisible }) {
                       onChange={handleLoginChange}
                       type="text"
                       name="email"
-                      placeholder="Email address or phone number"
+                      placeholder="Email address "
                     />
                     <LogInInput
                       onChange={handleLoginChange}
@@ -89,7 +91,6 @@ export default function LoginForm({ setVisible }) {
                       bottom
                     />
                     <button type="submit" className="blue_btn">
-                      {" "}
                       Log In
                     </button>
                   </Form>
@@ -105,7 +106,6 @@ export default function LoginForm({ setVisible }) {
                 className="blue_btn open_signup"
                 onClick={() => setVisible(true)}
               >
-                {" "}
                 Create Account
               </button>
             </div>

@@ -84,6 +84,7 @@ exports.register = async (req, res) => {
     sendVerificationEmail(user.email, user.first_name, url);
 
     const token = generateToken({ id: user._id.toString() }, "7d");
+    //EXCEPT MESSAGE,SAME IS SEND WHEN USER LOG IN
     res.send({
       id: user._id,
       user: user.username,
@@ -101,7 +102,7 @@ exports.register = async (req, res) => {
 
 exports.activateAccount = async (req, res) => {
   try {
-    const { token } = req.body;  //FROM WHERE THIS IS COMING
+    const { token } = req.body;  
     const user = jwt.verify(token, JWT_TOKEN_SECRET);
     const check = await User.findById(user.id);
     if (check.verified === true) {
@@ -129,6 +130,7 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "Incorrect password" });
     }
     const token = generateToken({ id: user._id.toString() }, "7d");
+    // generated token bcz data send from login will be used to set Cookies in loginForm.js
     res.send({
       id: user._id,
       user: user.username,

@@ -13,6 +13,7 @@ exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find().populate("user","first_name last_name picture username gender").sort({createdAt:-1});
     // sort by created at -1 means in descending order (from latest to oldest)
+    // by using populate we can access user fields in post
     res.json(posts);
   } catch (error) {
     return res.status(500).json({ message: error.message });

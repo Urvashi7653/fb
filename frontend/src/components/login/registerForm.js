@@ -1,11 +1,9 @@
 import { Form, Formik } from "formik";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import * as Yup from "yup";
 import { RegisterInput } from "../inputs/registerinput";
 import DotLoader from "react-spinners/DotLoader";
 import axios from "axios";
-//import { set } from "mongoose";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +18,7 @@ export default function RegisterForm({setVisible}) {
     email: "",
     password: "",
     bYear: new Date().getFullYear(),
-    bMonth: new Date().getMonth() + 1,
+    bMonth: new Date().getMonth()+1,
     bDay: new Date().getDate(),
     gender: "",
   };
@@ -37,14 +35,19 @@ export default function RegisterForm({setVisible}) {
   } = user;
 
   const tempYear = new Date().getFullYear();
+
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
+    console.log("********************e.target is **********************",e.target)
     setUser({ ...user, [name]: value });
+    console.log("*******************USER IS ************************",user);
   };
+
   const years = Array.from(new Array(108), (val, index) => tempYear - index);
   const months = Array.from(new Array(12), (val, index) => 1 + index);
   const getDays = () => {
     return new Date(bYear, bMonth, 0).getDate();
+    //THIS WILL RETURN NO OF DAYS IN A MONTH
   };
   const days = Array.from(new Array(getDays()), (val, index) => 1 + index);
 
@@ -174,7 +177,7 @@ export default function RegisterForm({setVisible}) {
                 <div className="reg_line">
                   <RegisterInput
                     type="text"
-                    placeholder="Mobile number or email address"
+                    placeholder="Email address"
                     name="email"
                     onChange={handleRegisterChange}
                   />
@@ -244,7 +247,7 @@ export default function RegisterForm({setVisible}) {
                   </div>
                   <div className="reg_grid">
                     <label htmlFor="Male">
-                      Male{" "}
+                      Male
                       <input
                         type="radio"
                         name="gender"
@@ -254,7 +257,7 @@ export default function RegisterForm({setVisible}) {
                       />
                     </label>
                     <label htmlFor="Female">
-                      Female{" "}
+                      Female
                       <input
                         type="radio"
                         name="gender"
@@ -264,7 +267,7 @@ export default function RegisterForm({setVisible}) {
                       />
                     </label>
                     <label htmlFor="Custom">
-                      Custom{" "}
+                      Custom
                       <input
                         type="radio"
                         name="gender"

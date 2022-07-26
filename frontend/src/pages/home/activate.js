@@ -13,7 +13,7 @@ import axios from "axios";
 export default function Activate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((user) => ({ ...user }));
+  const { user } = useSelector((state) => ({ ...state }));
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

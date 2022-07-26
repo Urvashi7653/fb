@@ -1,3 +1,8 @@
+//Blobs are immutable objects that represent raw data. File is a derivation of Blob that represents data from the file system. 
+//Use FileReader to read data from a Blob or File. Blobs allow you to construct file like objects on the client that you can pass to apis that expect urls instead of requiring the server provides the file. 
+//For example, you can construct a blob containing the data for an image, use URL.createObjectURL() to generate a url, and pass that url to HTMLImageElement.src to display the image you created without talking to a server.
+
+
 export default function dataURItoBlob(dataURI) {
     // convert base64/URLEncoded data component to raw binary data held in a string
     var byteString;

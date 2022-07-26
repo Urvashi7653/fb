@@ -1,0 +1,7 @@
+// The useReducer Hook is similar to the useState Hook.It allows for custom state logic.If you find yourself keeping track of multiple pieces of state that rely on complex logic, useReducer may be useful.
+
+//   const [state, dispatch] = useReducer(reducer, initialState);
+// https://dmitripavlutin.com/react-usereducer/#:~:text=The%20reducer%20function%20uses%20the,%5BnewState%2C%20...%5D
+
+//Enable Reinitialize : Default is false. Control whether Formik should reset the form if initialValues changes.
+
