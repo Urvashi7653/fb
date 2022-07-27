@@ -3,15 +3,16 @@ import "./style.css";
 import Moment from "react-moment";
 import { Dots, Public } from "../../svg";
 import ReactsPopup from "./ReactsPopup";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CreateComment from "./CreateComment";
 import PostMenu from "./PostMenu";
 export default function Post({ post, user }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const postRef = useRef(null);
 
   return (
-    <div className="post">
+    <div className="post" ref = {postRef}>
       <div className="post_header">
         <Link
           to={`/profile/${post.user.username}`} //we can use post.user.username bcz we populate user in post.js (controllers)
@@ -130,6 +131,10 @@ export default function Post({ post, user }) {
           postUserId={post.user._id}
           imagesLength={post?.images?.length}
           setShowMenu={setShowMenu}
+          images={post.images}
+          postRef={postRef}
+          postId={post._id}
+          token={user.token}
         />
       )}
     </div>

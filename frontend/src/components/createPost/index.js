@@ -1,6 +1,6 @@
 import { Feeling, LiveVideo, Photo } from "../../svg";
 import "./style.css";
-export default function CreatePost({ user, setVisible }) {
+export default function CreatePost({ user, setVisible,profile}) {
   return (
     <div className="createPost">
       <div className="createPost_header">

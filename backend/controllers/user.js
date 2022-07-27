@@ -409,3 +409,16 @@ exports.deleteRequest = async (req, res) => {
     return res.status(500).json({ message: error.message })
   }
 }
+
+exports.getProfile= async(req,res)=>{
+  try {
+    const {username} = req.params;
+    const profile = await User.findOne({username}).select("-password");
+    if(!profile){
+     return res.json({ok:false});
+    }
+    res.json(profile);
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}

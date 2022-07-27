@@ -461,3 +461,8 @@ gap: 6px;
     background: var(--bg-third);
     cursor: pointer;
   }
+
+  .active_link{
+    background: var(--light-blue-color);
+    color: var(--blue-color);
+  }

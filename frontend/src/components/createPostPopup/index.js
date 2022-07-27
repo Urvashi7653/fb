@@ -7,13 +7,13 @@ import ImagePreview from "./ImagePreview";
 import useClickOutside from "../../helpers/clickOutside";
 import { createPost } from "../../functions/post";
 import PulseLoader from "react-spinners/PulseLoader";
-//import { useDispatch } from "react-redux";
 import PostError from "./PostError";
 import dataURItoBlob from "../../helpers/dataURItoBlob";
 import { uploadImages } from "../../functions/uploadImages";
+import { useSelector } from "react-redux";
 
 export default function CreatePostPopup({ user, setVisible }) {
-  //const dispatch = useDispatch();
+
   const popup = useRef(null);
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
@@ -48,7 +48,7 @@ export default function CreatePostPopup({ user, setVisible }) {
       const postImages = images.map((img) => {
         return dataURItoBlob(img);
       });
-      const path = `${user.username}/post Images`;
+      const path = `${user.user}/post_images`;
       let formData = new FormData();
       formData.append("path", path);
       postImages.forEach((image) => {

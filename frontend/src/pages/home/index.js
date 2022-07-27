@@ -7,13 +7,13 @@ import Stories from "../../components/home/stories";
 import Post from "../../components/post";
 import "./style.css"
 
-export default function Home({setVisible,posts}) {
+export default function Home({setVisible,posts,loading}) {
   const { user } = useSelector((state) => ({ ...state }));
 
   return (
     <div>
       <div className="home">
-        <Header />
+        <Header page = "home"/>
         <LeftHome user={user} />
         <div className="home_middle">
           <Stories/>

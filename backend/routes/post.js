@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { createPost,getAllPosts } = require("../controllers/post.js");
+const { createPost,getAllPosts,deletePost } = require("../controllers/post.js");
 const { authUser } = require("../middlewares/auth.js");
 
 router.post("/createPost", authUser,createPost);
-router.get("/getAllPosts",getAllPosts);
+router.get("/getAllPosts",authUser,getAllPosts);
+// router.put("/comment", authUser, comment);
+// router.put("/savePost/:id", authUser, savePost);
+router.delete("/deletePost/:id", authUser, deletePost);
 
 module.exports = router;
