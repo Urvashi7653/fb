@@ -11,22 +11,22 @@ import ProfilePictureInfos from "./ProfilePictureInfo";
 import Post from "../../components/post";
 import CreatePost from "../../components/createPost";
 import Cover from "./Cover";
-export default function Profile({setVisible}) {
+export default function Profile({ setVisible, visible }) {
     const profileTop = useRef(null);
-    //const [visible, setVisible] = useState(false);
     const navigate = useNavigate();
     const { user } = useSelector((state) => ({ ...state }));
     const { username } = useParams();
-    var userName = username === undefined ? user.user : username;
+    const userName = username === undefined ? user.user : username;
     const [{ loading, error, profile }, dispatch] = useReducer(profileReducer, {
         loading: false,
         profile: {},
         error: "",
     });
+
     useEffect(() => {
         getProfile();
     }, [userName]);
-
+    const visitor = userName===user.user?false : true;
     const getProfile = async () => {
         try {
             dispatch({
@@ -74,24 +74,23 @@ export default function Profile({setVisible}) {
             });
         }
     };
-    console.log(profile);
+    console.log("#################",profile);
 
     return (
-
         <div className="profile">
-            {/* {visible && (<CreatePostPopup
+            {visible && (<CreatePostPopup
                 user={user}
                 setVisible={setVisible}
                 posts={profile?.posts}
                 dispatch={dispatch}
                 profile
             />
-            )} */}
+            )}
             <Header page="profile" />
             <div className="profile_top" ref={profileTop}>
                 <div className="profile_container">
-                    <Cover cover={profile.cover} />
-                    <ProfilePictureInfos profile={profile} />
+                    <Cover cover={profile.cover} visitor ={visitor} />
+                    <ProfilePictureInfos profile={profile} visitor ={visitor}/>
                     <ProfileMenu />
                 </div>
             </div>
@@ -101,17 +100,16 @@ export default function Profile({setVisible}) {
                         <div className="profile_grid">
                             <div className="profile_left"></div>
                             <div className="profile_right">
-                                <CreatePost user={user} setVisible={setVisible}/>
-                                 {/* <GridPosts /> 
-                                    <div className="posts">
-                                        {profile.posts && profile.posts.length ? (
-                                            profile.posts.map((post) => (
-                                                <Post post={post} user={user} key={post._id} profile />
-                                            ))
-                                        ) : (
-                                             <div className="no_posts">No posts available</div>
-                                         )} */}
-                                    {/* </div> */}
+                                <CreatePost user={user} setVisible={setVisible} />
+                                <div className="posts">
+                                    {profile.posts && profile.posts.length ? (
+                                        profile.posts.map((post) => (
+                                            <Post post={post} user={user} key={post._id} profile />
+                                        ))
+                                    ) : (
+                                        <div className="no_posts">No posts available</div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -120,6 +118,38 @@ export default function Profile({setVisible}) {
         </div>
 
     )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //     return (
     //         <div className="profile">
     //             {visible && (

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./style.css";
 //import Picker from "emoji-picker-react";
 import EmojiPickerBackgrounds from "./EmojiPickerBackgrounds";
@@ -10,7 +10,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import PostError from "./PostError";
 import dataURItoBlob from "../../helpers/dataURItoBlob";
 import { uploadImages } from "../../functions/uploadImages";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 
 export default function CreatePostPopup({ user, setVisible }) {
 
@@ -21,10 +21,14 @@ export default function CreatePostPopup({ user, setVisible }) {
   const [error, setError] = useState("");
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
+
   useClickOutside(popup, () => {
     setVisible(false);
   });
+
   const postSubmit = async () => {
+
+    //for posts having background
     if (background) {
       setLoading(true);
       const response = await createPost(
@@ -36,6 +40,8 @@ export default function CreatePostPopup({ user, setVisible }) {
         user.token
       );
       setLoading(false);
+
+      //after submit
       if (response === "ok") {
         setBackground("");
         setText("");
@@ -43,19 +49,27 @@ export default function CreatePostPopup({ user, setVisible }) {
       } else {
         setError(response);
       }
+
+      //post containing images
     } else if (images && images.length) {
       setLoading(true);
       const postImages = images.map((img) => {
         return dataURItoBlob(img);
       });
+
       const path = `${user.user}/post_images`;
       let formData = new FormData();
       formData.append("path", path);
       postImages.forEach((image) => {
         formData.append("file", image);
       });
-      const response = await uploadImages(formData, path, user.token);
 
+      //The FormData interface provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the fetch() or XMLHttpRequest.send() method. 
+      // formdata.append() Appends a new value onto an existing key inside a FormData object, or adds the key if it does not already exist.
+
+      const response = await uploadImages(formData, user.token);
+
+      //for posts without background
       const res = await createPost(
         null,
         null,
@@ -154,6 +168,7 @@ export default function CreatePostPopup({ user, setVisible }) {
           }}
           disabled={loading}
         >
+        {/* A disabled button is unusable and un-clickable.When present, it specifies that the button should be disabled. */}
           {loading ? <PulseLoader color="#fff" size={5} /> : "Post"}
         </button>
       </div>

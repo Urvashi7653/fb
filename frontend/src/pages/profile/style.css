@@ -78,6 +78,7 @@
   justify-content: space-between;
   padding: 0 1rem;
   margin-bottom: -2.8rem;
+  z-index:0;
 }
 .profile_w_left {
   display: flex;

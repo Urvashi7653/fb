@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Post = require("../models/Post");
 const Code = require("../models/Code");
 require("dotenv").config();
 const {
@@ -11,15 +12,14 @@ const { generateToken } = require("../helpers/tokens");
 const { sendVerificationEmail, sendResetCode } = require("../helpers/mailer");
 const { BASE_URL, JWT_TOKEN_SECRET } = process.env;
 const jwt = require("jsonwebtoken");
-//const { findOne } = require("../models/User");
 const generateCode = require("../helpers/generateCode");
 
+//from
 exports.register = async (req, res) => {
   try {
     const {
       first_name,
       last_name,
-      username,
       email,
       password,
       gender,
@@ -34,15 +34,15 @@ exports.register = async (req, res) => {
       });
     }
 
-    if (!validateLength(first_name, 3, 30)) {
+    if (!validateLength(first_name, 2, 30)) {
       return res.status(400).json({
-        message: "First name should be between 3 and 30 characters",
+        message: "First name should be between 2 and 30 characters",
       });
     }
 
-    if (!validateLength(last_name, 3, 30)) {
+    if (!validateLength(last_name, 2, 30)) {
       return res.status(400).json({
-        message: "Last name should be between 3 and 30 characters",
+        message: "Last name should be between 2 and 30 characters",
       });
     }
 
@@ -74,6 +74,7 @@ exports.register = async (req, res) => {
       bMonth,
       bDay,
     });
+
     user.save();
     const emailVerificationToken = generateToken(
       { id: user._id.toString() },
@@ -100,10 +101,11 @@ exports.register = async (req, res) => {
   }
 };
 
+//from 
 exports.activateAccount = async (req, res) => {
   try {
     const { token } = req.body;  
-    const user = jwt.verify(token, JWT_TOKEN_SECRET);
+    const user = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
     const check = await User.findById(user.id);
     if (check.verified === true) {
       return res.status(400).json({ message: "Email already activated" });
@@ -118,6 +120,7 @@ exports.activateAccount = async (req, res) => {
   }
 };
 
+//from
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -150,9 +153,10 @@ exports.auth = (req, res) => {
   res.json("Welcome from Auth");
 };
 
+//from components >> home>>sendverification
 exports.sendVerification = async (req, res) => {
   try {
-    const id = req.user.id;
+    const id = req.user.id;   
     const user = await User.findById(id);
     if (user.verified === true) {
       return res
@@ -174,10 +178,12 @@ exports.sendVerification = async (req, res) => {
   }
 };
 
+//this function is needed while resetting password
+//from reset>>searchaccount
 exports.findUser = async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await User.findOne({ email: email }).select("-password");
+    const user = await User.findOne({ email: email }).select("-password"); 
     if (!user) {
       return res.status(400).json({
         message: "Account does not exists.",
@@ -192,13 +198,14 @@ exports.findUser = async (req, res) => {
   }
 };
 
+//from reset>>SendEmail
 exports.sendResetPasswordCode = async (req, res) => {
   try {
     const { email } = req.body;
     const user = await User.findOne({ email }).select("-password");
     await Code.findOneAndRemove({ user: user._id });
     const code = generateCode(5);
-    const savedCode = await new Code({
+    await new Code({
       code: code,
       user: user._id,
     }).save();
@@ -211,6 +218,7 @@ exports.sendResetPasswordCode = async (req, res) => {
   }
 };
 
+//
 exports.validateResetCode = async (req, res) => {
   try {
     const { email, code } = req.body;
@@ -227,6 +235,7 @@ exports.validateResetCode = async (req, res) => {
   }
 };
 
+//from reset >> changepassword
 exports.changePassword = async (req, res) => {
   const { email, password } = req.body;
 
@@ -410,14 +419,39 @@ exports.deleteRequest = async (req, res) => {
   }
 }
 
+//from profile>>index.js (using useEffect())
 exports.getProfile= async(req,res)=>{
   try {
     const {username} = req.params;
+    const user = await User.findById(req.user.id);
     const profile = await User.findOne({username}).select("-password");
-    if(!profile){
+    const friendship = {
+      friends: false,
+      following: false,
+      requestSent: false,
+      requestReceived: false,
+    };
+     if(!profile){
      return res.json({ok:false});
     }
-    res.json(profile);
+
+    if (
+      user.friends.includes(profile._id) &&
+      profile.friends.includes(user._id)
+    ) {
+      friendship.friends = true;
+    }
+    if (user.following.includes(profile._id)) {
+      friendship.following = true;
+    }
+    if (user.requests.includes(profile._id)) {
+      friendship.requestReceived = true;
+    }
+    if (profile.requests.includes(user._id)) {
+      friendship.requestSent = true;
+    }
+    const posts = await Post.find({user:profile._id}).populate("user");
+    res.json({...profile,posts,friendship});
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }

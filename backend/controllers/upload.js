@@ -1,11 +1,13 @@
 const cloudinary = require("cloudinary");
 const fs = require("fs");
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
+//from functions (uploadimages)
 exports.uploadImages = async (req, res) => {
   try {
     const { path } = req.body;
@@ -22,6 +24,7 @@ exports.uploadImages = async (req, res) => {
   }
 };
 
+//from
 exports.listImages = async (req, res) => {
   const { path, sort, max } = req.body;
 
@@ -38,6 +41,7 @@ exports.listImages = async (req, res) => {
     });
 };
 
+//called from exports.uploadImages
 const uploadToCloudinary = async (file, path) => {
   return new Promise((resolve) => {
     cloudinary.v2.uploader.upload(

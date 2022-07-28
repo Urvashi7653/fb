@@ -33,7 +33,7 @@ export default function SearchMenu({ color, setShowSearchMenu }) {
             <span> Recent searches</span>
             <a>Edit</a>
         </div>
-        <div className="search_history"></div>
-        <div className="search_results scrollbar"></div>
+        {/* <div className="search_history"></div>
+        <div className="search_results scrollbar"></div> */}
     </div>
 }

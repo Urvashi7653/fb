@@ -91,7 +91,7 @@ export default function Header({page}) {
               setShowAllMenu((prev) => !prev);
             }}
           >
-            <Menu />{" "}
+            <Menu />
           </div>
           {showAllMenu && <AllMenu />}
         </div>

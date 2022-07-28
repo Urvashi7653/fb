@@ -28,6 +28,7 @@ export default function ChangePassword({
       .oneOf([Yup.ref("password")], "Passwords must match."),
   });
   const { email } = userInfos;
+  
   const changePassword = async () => {
     try {
       setLoading(true);

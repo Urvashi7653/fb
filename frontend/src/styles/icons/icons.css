@@ -330,7 +330,7 @@
   height: 20px;
   background-repeat: no-repeat;
   display: inline-block;
-  -webkit-filter: invert(40%);
+  color: #fff;
 }
 .turnOffNotifications_icon {
   background-image: url("../../../public/icons/icons3.png");

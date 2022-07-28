@@ -23,7 +23,7 @@ export default function ImagePreview({
         img.type !== "image/gif"
       ) {
         setError(
-          `${img.name} This type of image format is unsupported ! Only Jpeg, Png, Webp, Gif are allowed.`
+          `${img.name} This type of image format is not supported. Only Jpeg, Png, Webp, Gif are allowed.`
         );
         files = files.filter((item) => item.name !== img.name);
         return;
@@ -33,7 +33,7 @@ export default function ImagePreview({
         return;
       } else {
         const reader = new FileReader();
-        reader.readAsDataURL(img);
+        reader.readAsDataURL(img);      // read as blob
         reader.onload = (readerEvent) => {
           setImages((images) => [...images, readerEvent.target.result]);
         };

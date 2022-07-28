@@ -1,6 +1,7 @@
 const fs = require("fs");
 
 //default export
+//checks file size and type
 module.exports = async (req, res, next) => {
   try {
     if (!req.files || Object.values(req.files).flat().length === 0) {
@@ -25,6 +26,8 @@ module.exports = async (req, res, next) => {
       }
     });
     next();
+    //next() : It will run or execute the code after all the middleware function is finished.
+
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

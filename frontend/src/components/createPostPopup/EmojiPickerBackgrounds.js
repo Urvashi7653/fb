@@ -54,6 +54,7 @@ export default function EmojiPickerBackgrounds({
   //correct spelling
   const backgroundHandler = (i) => {
     bgRef.current.style.backgroundImage = `url(${postBackgrounds[i]})`;
+    console.log(`url(${postBackgrounds[i]})`);
     setBackground(postBackgrounds[i]);
     bgRef.current.classList.add("bgHandler");
   };

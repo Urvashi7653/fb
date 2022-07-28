@@ -7,24 +7,24 @@ import Stories from "../../components/home/stories";
 import Post from "../../components/post";
 import "./style.css"
 
-export default function Home({setVisible,posts,loading}) {
+export default function Home({ setVisible, posts, loading }) {
   const { user } = useSelector((state) => ({ ...state }));
 
   return (
     <div>
       <div className="home">
-        <Header page = "home"/>
+        <Header page="home" />
         <LeftHome user={user} />
         <div className="home_middle">
-          <Stories/>
-          {user.verified ===false && <SendVerification user = {user}/>}
-          <CreatePost user = {user} setVisible= {setVisible}/>
+          <Stories />
+          {user.verified === false && <SendVerification user={user} />}
+          <CreatePost user={user} setVisible={setVisible} />
           <div className="posts">
-          {posts.map((post) => (
-            <Post key={post._id} post={post} user={user} />
-          ))}
-        </div>
+            {posts.map((post) => (
+              <Post key={post._id} post={post} user={user} />
+            ))}
           </div>
+        </div>
       </div>
     </div>
   );

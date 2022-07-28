@@ -19,7 +19,6 @@ const userSchema = mongoose.Schema(
 
     username: {
       type: String,
-      //required: [true, "Username is required"],
       trim: true,
       text: true,
       unique: true,
