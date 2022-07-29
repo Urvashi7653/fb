@@ -1,11 +1,11 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import "./style.css"
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { profileReducer } from "../../functions/reducers";
-import { useEffect, useReducer, useState, useRef } from "react";
-import Header from "../../components/header"
-import CreatePostPopup from "../../components/createPostPopup"
+import { useEffect, useReducer, useRef } from "react";
+import Header from "../../components/header";
+import CreatePostPopup from "../../components/createPostPopup";
 import ProfileMenu from "./ProfileMenu";
 import ProfilePictureInfos from "./ProfilePictureInfo";
 import Post from "../../components/post";
@@ -13,7 +13,6 @@ import CreatePost from "../../components/createPost";
 import Cover from "./Cover";
 export default function Profile({ setVisible, visible }) {
     const profileTop = useRef(null);
-    const navigate = useNavigate();
     const { user } = useSelector((state) => ({ ...state }));
     const { username } = useParams();
     const userName = username === undefined ? user.user : username;
@@ -26,7 +25,8 @@ export default function Profile({ setVisible, visible }) {
     useEffect(() => {
         getProfile();
     }, [userName]);
-    const visitor = userName===user.user?false : true;
+
+    const visitor = userName === user.user ? false : true;
     const getProfile = async () => {
         try {
             dispatch({
@@ -44,29 +44,6 @@ export default function Profile({ setVisible, visible }) {
                 type: "PROFILE_SUCCESS",
                 payload: data,
             });
-            // if (data.ok === false) {
-            //     navigate("/profile");
-            // }
-            // else {
-            //     try {
-            //         const images = await axios.post(
-            //             `${process.env.REACT_APP_BACKEND_URL}/listImages`,
-            //             { path, sort, max },
-            //             {
-            //                 headers: {
-            //                     Authorization: `Bearer ${user.token}`,
-            //                 },
-            //             }
-            //         );
-            //         setPhotos(images.data);
-            //     } catch (error) {
-            //         console.log(error);
-            //     }
-            //     dispatch({
-            //         type: "PROFILE_SUCCESS",
-            //         payload: data,
-            //     });
-            // }
         } catch (error) {
             dispatch({
                 type: "PROFILE_ERROR",
@@ -74,7 +51,6 @@ export default function Profile({ setVisible, visible }) {
             });
         }
     };
-    console.log("#################",profile);
 
     return (
         <div className="profile">
@@ -89,8 +65,8 @@ export default function Profile({ setVisible, visible }) {
             <Header page="profile" />
             <div className="profile_top" ref={profileTop}>
                 <div className="profile_container">
-                    <Cover cover={profile.cover} visitor ={visitor} />
-                    <ProfilePictureInfos profile={profile} visitor ={visitor}/>
+                    <Cover cover={profile.cover} visitor={visitor} />
+                    <ProfilePictureInfos profile={profile} visitor={visitor} />
                     <ProfileMenu />
                 </div>
             </div>
@@ -100,7 +76,7 @@ export default function Profile({ setVisible, visible }) {
                         <div className="profile_grid">
                             <div className="profile_left"></div>
                             <div className="profile_right">
-                                <CreatePost user={user} setVisible={setVisible} />
+                                {!visitor && <CreatePost user={user} setVisible={setVisible} />}
                                 <div className="posts">
                                     {profile.posts && profile.posts.length ? (
                                         profile.posts.map((post) => (

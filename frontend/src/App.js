@@ -12,11 +12,9 @@ import { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { postsReducer } from "./functions/reducers";
 
-
-
 function App() {
   const [visible, setVisible] = useState(false);
-  const [{ loading, error, posts }, dispatch] = useReducer(postsReducer, {
+  const [{ loading,error, posts }, dispatch] = useReducer(postsReducer, {
     loading: false,
     posts: [],
     error: "",
@@ -46,7 +44,7 @@ function App() {
     } catch (error) {
       dispatch({
         type: "POSTS_ERROR",
-        payload: error.response.data.message,
+        payload: error,
       });
     }
   };

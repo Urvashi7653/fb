@@ -10,12 +10,13 @@ export default function Post({ post, user }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const postRef = useRef(null);
+  console.log(user);
 
   return (
     <div className="post" ref = {postRef}>
       <div className="post_header">
         <Link
-          to={`/profile/${post.user.username}`} //we can use post.user.username bcz we populate user in post.js (controllers)
+          to={`/profile/${post.user.user}`} //we can use post.user.user bcz we populate user in post.js (controllers)
           className="post_header_left"
         >
           <img src={post.user.picture} alt="" />

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // called as const response = await uploadImages(formData, path, user.token);
-// from index.js createPostpopup
+// from  components  >> createPostpopup >>index.js
 export const uploadImages = async (formData,token) => {
   try {
     const { data } = await axios.post(

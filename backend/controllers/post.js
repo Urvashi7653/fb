@@ -43,7 +43,8 @@ exports.getAllPosts = async (req, res) => {
   }
 };
 
-//from 
+
+//from functions post in frontend
 exports.deletePost = async (req, res) => {
   try {
     await Post.findByIdAndRemove(req.params.id);

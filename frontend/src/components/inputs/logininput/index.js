@@ -24,7 +24,6 @@ export function LogInInput({ placeholder, bottom, ...props }) {
           {meta.touched && meta.error && (<div className="error_arrow_bottom">
           </div>)}</div>
       )}
-      {/* meta.touched && meta.error && <i className="error_icon"></i> */}
     </div>
   );
 }

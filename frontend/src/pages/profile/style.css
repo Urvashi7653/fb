@@ -32,7 +32,7 @@
 }
 .open_cover_update {
   position:absolute;
-  background: #fff;
+  background:#fff;
   padding: 7px 15px;
   display: flex;
   align-items: center;
@@ -451,10 +451,12 @@
   top: 54px;
 }
 .friendship {
-  z-index: 9;
+  position: absolute;
   display: flex;
   align-items: center;
   gap: 10px;
+  top:45px;
+  right:-725px;
 }
 .friendship .blue_btn {
   height: 34px;

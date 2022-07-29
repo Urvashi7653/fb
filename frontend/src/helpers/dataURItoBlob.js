@@ -2,7 +2,7 @@
 //Use FileReader to read data from a Blob or File. Blobs allow you to construct file like objects on the client that you can pass to apis that expect urls instead of requiring the server provides the file. 
 //For example, you can construct a blob containing the data for an image, use URL.createObjectURL() to generate a url, and pass that url to HTMLImageElement.src to display the image you created without talking to a server.
 
-
+//This is called from components >> createPostPop>>index.js
 export default function dataURItoBlob(dataURI) {
     // convert base64/URLEncoded data component to raw binary data held in a string
     var byteString;

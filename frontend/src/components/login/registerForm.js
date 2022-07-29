@@ -38,9 +38,7 @@ export default function RegisterForm({setVisible}) {
 
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
-    console.log("********************e.target is **********************",e.target)
     setUser({ ...user, [name]: value });
-    console.log("*******************USER IS ************************",user);
   };
 
   const years = Array.from(new Array(108), (val, index) => tempYear - index);

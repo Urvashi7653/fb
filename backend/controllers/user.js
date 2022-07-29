@@ -101,7 +101,6 @@ exports.register = async (req, res) => {
   }
 };
 
-//from 
 exports.activateAccount = async (req, res) => {
   try {
     const { token } = req.body;  
@@ -120,7 +119,6 @@ exports.activateAccount = async (req, res) => {
   }
 };
 
-//from
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -149,7 +147,7 @@ exports.login = async (req, res) => {
 };
 
 exports.auth = (req, res) => {
-  console.log(req.user);
+  //console.log(req.user);
   res.json("Welcome from Auth");
 };
 
@@ -249,6 +247,7 @@ exports.changePassword = async (req, res) => {
   return res.status(200).json({ message: "ok" });
 };
 
+//from functions >> user in frontend
 exports.addFriend = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -279,6 +278,7 @@ exports.addFriend = async (req, res) => {
   }
 };
 
+//from functions >> user in frontend
 exports.cancelRequest = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -311,6 +311,7 @@ exports.cancelRequest = async (req, res) => {
   }
 };
 
+//from functions >> user in frontend
 exports.follow = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -338,6 +339,7 @@ exports.follow = async (req, res) => {
   }
 };
 
+//from functions >> user in frontend
 exports.unfollow = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -366,7 +368,8 @@ exports.unfollow = async (req, res) => {
 };
 
 
-//MODIFIED 
+//MODIFIED  
+////from functions >> user in frontend
 exports.acceptRequest = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -397,6 +400,7 @@ exports.acceptRequest = async (req, res) => {
 };
 
 //MODIFIED
+//from functions >> user in frontend
 exports.deleteRequest = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -451,7 +455,7 @@ exports.getProfile= async(req,res)=>{
       friendship.requestSent = true;
     }
     const posts = await Post.find({user:profile._id}).populate("user");
-    res.json({...profile,posts,friendship});
+    res.json({...profile.toObject(),posts,friendship});
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }

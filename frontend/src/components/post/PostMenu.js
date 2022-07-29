@@ -16,9 +16,10 @@ export default function PostMenu({
   const [test, setTest] = useState(postUserId === userId ? true : false);
   const menu = useRef(null);
   useOnClickOutside(menu, () => setShowMenu(false));
+
   const downloadImages = async () => {
     images.map((img) => {
-      saveAs(img.url, "image.png");
+      saveAs(img.url, "image.jpeg");
     });
   };
   const deleteHandler = async () => {

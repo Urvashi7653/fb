@@ -17,8 +17,7 @@ export default function EmojiPickerBackgrounds({
   type2,
   background,
   setBackground,
-})
- {
+}) {
   const [picker, setPicker] = useState(false);
   const [showBgs, setShowBgs] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
@@ -29,7 +28,6 @@ export default function EmojiPickerBackgrounds({
     textRef.current.selectionEnd = cursorPosition;
   }, [cursorPosition]);
 
-
   const handleEmoji = (e, { emoji }) => {
     const ref = textRef.current;
     ref.focus();
@@ -39,6 +37,7 @@ export default function EmojiPickerBackgrounds({
     setText(newText);
     setCursorPosition(start.length + emoji.length);
   };
+  
   const postBackgrounds = [
     img1,
     img2,
@@ -54,7 +53,6 @@ export default function EmojiPickerBackgrounds({
   //correct spelling
   const backgroundHandler = (i) => {
     bgRef.current.style.backgroundImage = `url(${postBackgrounds[i]})`;
-    console.log(`url(${postBackgrounds[i]})`);
     setBackground(postBackgrounds[i]);
     bgRef.current.classList.add("bgHandler");
   };
@@ -74,20 +72,18 @@ export default function EmojiPickerBackgrounds({
           className={`post_input ${type2 ? "input2" : ""}`}
           onChange={(e) => setText(e.target.value)}
           style={{
-            paddingTop: `${
-              background
-                ? Math.abs(textRef.current.value.length * 0.1 - 32)
-                : "0"
-            }%`,
+            paddingTop: `${background
+              ? Math.abs(textRef.current.value.length * 0.1 - 32)
+              : "0"
+              }%`,
           }}
         ></textarea>
       </div>
       <div className={!type2 ? "post_emojis_wrap" : ""}>
         {picker && (
           <div
-            className={`comment_emoji_picker ${
-              type2 ? "movepicker2" : "rlmove"
-            }`}
+            className={`comment_emoji_picker ${type2 ? "movepicker2" : "rlmove"
+              }`}
           >
             <Picker onEmojiClick={handleEmoji} />
           </div>
