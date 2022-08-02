@@ -11,18 +11,22 @@ import CreatePostPopup from "./components/createPostPopup";
 import { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { postsReducer } from "./functions/reducers";
+import Admin from "./pages/admin";
+
 
 function App() {
   const [visible, setVisible] = useState(false);
-  const [{ loading,error, posts }, dispatch] = useReducer(postsReducer, {
+  const [{ loading, error, posts }, dispatch] = useReducer(postsReducer, {
     loading: false,
     posts: [],
     error: "",
   });
+ 
 
   useEffect(() => {
     getAllPosts();
   }, []);
+
 
   const getAllPosts = async () => {
     try {
@@ -66,6 +70,7 @@ function App() {
           <Route path="/login" element={<Login />} exact />
         </Route>
         <Route path="/reset" element={<Reset />} />
+        <Route path="/admin" element={< Admin/>} />
       </Routes>
     </div>
   );
@@ -73,7 +78,3 @@ function App() {
 
 export default App;
 
-
-// //SPREAD OPERATOR
-// const numbers = [1, 2, 3, 4, 5, 6];
-// const [one, two, ...rest] = numbers;

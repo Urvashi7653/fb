@@ -6,6 +6,9 @@
     width: 100%;
     cursor: pointer;
   }
+
+  /* box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit; */
+
   .createPost_header {
     display: flex;
     align-items: center;
@@ -28,7 +31,8 @@
     font-size: 17px;
     line-height: 21px;
     display: flex;
-    align-items: center;
+    align-items: center;  
+/* align-items will work only when display: flex */
     padding-left: 10px;
   }
   .create_splitter {
@@ -41,6 +45,7 @@
     padding: 0 10px 8px 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    /* Fr is a fractional unit and 1fr is for 1 part of the available space.*/
   }
   .createPost_icon {
     display: flex;

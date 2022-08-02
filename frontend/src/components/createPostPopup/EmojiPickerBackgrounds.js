@@ -24,6 +24,8 @@ export default function EmojiPickerBackgrounds({
   const textRef = useRef(null);
   const bgRef = useRef(null);
 
+
+  /******************NEEDED ONLY BCZ OF EMOJI************************/
   useEffect(() => {
     textRef.current.selectionEnd = cursorPosition;
   }, [cursorPosition]);
@@ -37,7 +39,8 @@ export default function EmojiPickerBackgrounds({
     setText(newText);
     setCursorPosition(start.length + emoji.length);
   };
-  
+  /*******************************************************************/
+
   const postBackgrounds = [
     img1,
     img2,
@@ -53,6 +56,8 @@ export default function EmojiPickerBackgrounds({
   //correct spelling
   const backgroundHandler = (i) => {
     bgRef.current.style.backgroundImage = `url(${postBackgrounds[i]})`;
+    //console.log(`url(${postBackgrounds[i]})`);
+    //url(/static/media/1.cfadf53248514f81c578.jpg);
     setBackground(postBackgrounds[i]);
     bgRef.current.classList.add("bgHandler");
   };

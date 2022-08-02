@@ -23,6 +23,10 @@ const postSchema = new mongoose.Schema(
     background: {
       type: String,
     },
+    approved:{
+      type: Boolean,
+      default: false,
+    },
     comments: [
       {
         comment: {
@@ -37,7 +41,7 @@ const postSchema = new mongoose.Schema(
         },
         commentAt: {
           type: Date,
-          default: new Date(),
+          required:true
         },
       },
     ],

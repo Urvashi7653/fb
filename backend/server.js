@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
-const { readdirSync } = require("fs");
+const { readdirSync } = require("fs"); // read directory in synchronous way
 const env = require("dotenv");
 const mongoose = require("mongoose");
 env.config();
@@ -13,6 +13,7 @@ app.use(express.json())
 app.use(fileUpload({
   useTempFiles:true
 }))
+//Use temp files instead of memory for managing the upload process.
 
 //ROUTES
 //const userRoutes = require("./routes/user.js");

@@ -1,11 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import Picker from "emoji-picker-react";
-export default function CreateComment({ user }) {
+import { comment } from "../../functions/post";
+import { uploadImages } from "../../functions/uploadImages";
+import dataURItoBlob from "../../helpers/dataURItoBlob";
+
+import "./style.css";
+
+export default function CreateComment({ user, postId, setComments, setCount }) {
   const [picker, setPicker] = useState(false);
   const [text, setText] = useState("");
   const [error, setError] = useState("");
   const [commentImage, setCommentImage] = useState("");
   const [cursorPosition, setCursorPosition] = useState();
+  const [loading, setLoading] = useState(false);
   const textRef = useRef(null);
   const imgInput = useRef(null);
   useEffect(() => {
@@ -20,6 +27,44 @@ export default function CreateComment({ user }) {
     setText(newText);
     setCursorPosition(start.length + emoji.length);
   };
+
+
+  const handleComment = async (e) => {
+    if (e.key === "Enter") {
+      if (commentImage != "") {
+        setLoading(true);
+        const img = dataURItoBlob(commentImage);
+        const path = `${user.user}/post_images/${postId}`;
+        let formData = new FormData();
+        formData.append("path", path);
+        formData.append("file", img);
+        const imgComment = await uploadImages(formData, path, user.token);
+
+        const comments = await comment(
+          postId,
+          text,
+          imgComment[0].url,
+          user.token
+        );
+        setComments(comments);
+        setCount((prev) => ++prev);
+        setLoading(false);
+        setText("");
+        setCommentImage("");
+      } else {
+        setLoading(true);
+
+        const comments = await comment(postId, text, "", user.token);
+        setComments(comments);
+        setCount((prev) => ++prev);
+        setLoading(false);
+        setText("");
+        setCommentImage("");
+      }
+    }
+  };
+
+
   const handleImage = (e) => {
     let file = e.target.files[0];
     if (
@@ -72,6 +117,7 @@ export default function CreateComment({ user }) {
             value={text}
             placeholder="Write a comment..."
             onChange={(e) => setText(e.target.value)}
+            onKeyUp={handleComment}
           />
           <div
             className="comment_circle_icon hover2"

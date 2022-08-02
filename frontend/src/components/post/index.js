@@ -3,15 +3,23 @@ import "./style.css";
 import Moment from "react-moment";
 import { Dots, Public } from "../../svg";
 import ReactsPopup from "./ReactsPopup";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import CreateComment from "./CreateComment";
 import PostMenu from "./PostMenu";
+import { comment } from "../../functions/post";
+import Comment from "./Comment";
 export default function Post({ post, user }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [count, setCount] = useState(1);
   const postRef = useRef(null);
-  console.log(user);
-
+  const showMore = () => {
+    setCount((prev) => prev + 3);
+  };
+  useEffect(() => {
+    setComments(post?.comments);
+  }, [post]);
   return (
     <div className="post" ref = {postRef}>
       <div className="post_header">
@@ -86,10 +94,6 @@ export default function Post({ post, user }) {
         </>
       )}
       <div className="post_infos">
-        {/* <div className="reacts_count">
-          <div className="reacts_count_imgs"></div>
-          <div className="reacts_count_num"></div>
-        </div> */}
         <div className="to_right">
           <div className="comments_count">13 comments</div>
           <div className="share_count">1 share</div>
@@ -124,7 +128,18 @@ export default function Post({ post, user }) {
       </div>
       <div className="comments_wrap">
         <div className="comments_order"></div>
-        <CreateComment user={user} />
+        <CreateComment user={user} postId ={post._id} setComments= {setComments} setCount = {setCount}/>
+        {comments &&
+          comments
+          .sort((a, b) => {
+              return new Date(b.commentAt) - new Date(a.commentAt);
+            })
+            .slice(0, count)
+            .map((comment, i) => <Comment comment={comment} key={i} />)}
+        {count < comments.length && (
+          <div className="view_comments" onClick={() => showMore()}>
+            View more comments
+          </div>)}
       </div>
       {showMenu && (
         <PostMenu

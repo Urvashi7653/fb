@@ -26,7 +26,7 @@ export default function Reset() {
     });
     navigate("/login");
   };
-  
+
   return (
     <div className="reset">
       <div className="reset_header">

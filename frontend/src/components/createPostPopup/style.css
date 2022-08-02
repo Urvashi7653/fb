@@ -121,14 +121,17 @@
     font-weight: 600;
     font-size: 14px;
   }
+
   .post_header_right {
     width: 35px;
     height: 35px;
     display: grid;
     place-items: center;
+    /* Without display: grid, place-items: center do not work */
     cursor: pointer;
     border-radius: 50%;
   }
+  
   .post_submit {
     width: calc(100% - 18px);
     margin: 5px 10px;

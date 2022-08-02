@@ -15,7 +15,7 @@ exports.createPost = async (req, res) => {
 exports.getAllPosts = async (req, res) => {
   try {
     const followingTemp = await User.findById(req.user.id).select("following"); // we get user in request using middleware authUser
-    const following = followingTemp.following;
+    const following = followingTemp.following;   // following will be an array having id of all people user follows
     const promises = following.map((user) => {
       return Post.find({ user: user })
         .populate("user", "first_name last_name picture username cover") //ObjectId is populated
@@ -53,3 +53,25 @@ exports.deletePost = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+exports.comment = async(req,res)=>{
+  try {
+    const {comment,image,postId}= req.body;
+    let newComments = await Post.findByIdAndUpdate(postId,{
+      $push:{
+        comments:{
+          comment:comment,
+          image:image,
+          commentBy:req.user.id,
+          commentAt: new Date()
+        }
+      }
+    },{
+      new:true
+    }).populate("comments:commentBy","picture first_name last_name username")
+    .populate("commentsBy","picture first_name last_name username");
+    res.json(newComments.comments);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}

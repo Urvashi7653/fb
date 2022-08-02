@@ -130,6 +130,8 @@ exports.login = async (req, res) => {
     if (!check) {
       return res.status(400).json({ message: "Incorrect password" });
     }
+    //everytime user login a new token is generated
+    //check if everytime token is new or same
     const token = generateToken({ id: user._id.toString() }, "7d");
     // generated token bcz data send from login will be used to set Cookies in loginForm.js
     res.send({
@@ -454,7 +456,10 @@ exports.getProfile= async(req,res)=>{
     if (profile.requests.includes(user._id)) {
       friendship.requestSent = true;
     }
-    const posts = await Post.find({user:profile._id}).populate("user");
+    const posts = await Post.find({user:profile._id}).populate("user").populate(
+      "comments.commentBy",
+      "first_name last_name picture username commentAt"
+    );
     res.json({...profile.toObject(),posts,friendship});
   } catch (error) {
     return res.status(500).json({ message: error.message })

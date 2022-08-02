@@ -1,7 +1,8 @@
 const fs = require("fs");
 
-//default export
+//default export (Otherwise it is exports.function_name)
 //checks file size and type
+//all middleware functions have next
 module.exports = async (req, res, next) => {
   try {
     if (!req.files || Object.values(req.files).flat().length === 0) {
@@ -33,6 +34,8 @@ module.exports = async (req, res, next) => {
   }
 };
 
+
+//fs.unlink(): remove a file or a symbolic link
 const removeTmp = (path) => {
   fs.unlink(path, (err) => {
     if (err) throw err;

@@ -7,3 +7,20 @@
 
 //app.use(cors());
 //const cors = require("cors");
+
+//fs.appendFile(): append data to a file. If the file does not exist, it's created
+
+//One peculiar thing about the fs module is that all the methods are asynchronous by default, but they can also work synchronously by appending Sync.
+
+// //SPREAD OPERATOR
+// const numbers = [1, 2, 3, 4, 5, 6];
+// const [one, two, ...rest] = numbers;
+<div className="home_middle">
+        <div className="home">
+          <div className="posts">
+            {adminPosts.map((post) => (
+              <Post key={post._id} post={post} />
+            ))}
+          </div>
+        </div>
+      </div>

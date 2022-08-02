@@ -10,3 +10,11 @@ function generateCode(length) {
   }
   
   module.exports = generateCode;
+
+  //THIS WOULD HAVE GIVEN SAME OUTPUT:
+  // let code = "";
+  
+  //   for (let i = 0; i < length; i++) {
+  //     code += Math.floor(Math.random() * 10);
+  //   }
+  // console.log(code);
