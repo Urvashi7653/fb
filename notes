@@ -15,7 +15,7 @@
 // //SPREAD OPERATOR
 // const numbers = [1, 2, 3, 4, 5, 6];
 // const [one, two, ...rest] = numbers;
-<div className="home_middle">
+{/* <div className="home_middle">
         <div className="home">
           <div className="posts">
             {adminPosts.map((post) => (
@@ -23,4 +23,61 @@
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
+
+//The FormData interface provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the fetch() or XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data".
+
+{/* <div className="updated_p">
+                {post.type == "profilePicture" &&
+                  `updated ${
+                    post.user.gender === "male" ? "his" : "her"
+                  } profile picture`}
+                {post.type == "cover" &&
+                  `updated ${
+                    post.user.gender === "male" ? "his" : "her"
+                  } cover picture`}
+              </div> */}
+
+//const number = await User.countDocuments();
+// (Object.values(post.images).toString())
+// const registerSubmit = async () => {
+//   try {
+//       const { data } = await axios.post(
+//       `${process.env.REACT_APP_BACKEND_URL}/register`,
+//       {
+//         first_name,
+//         last_name,
+//         email,
+//         password,
+//         bYear,
+//         bMonth,
+//         bDay,
+//         gender,
+//       }
+//     );
+//     setError("");
+//     setSuccess(data.message);
+//     const { message, ...rest } = data;
+//     setTimeout(() => {
+//       dispatch({ type: "LOGIN", payload: rest });
+//       Cookies.set("user", JSON.stringify(rest));
+//       navigate("/");
+//     }, 3000);
+//   } catch (error) {
+//     setLoading(false);
+//     setSuccess("");
+//     setError(error.response.data.message);
+//   }
+// };
+
+
+{/* {admintype && <div className="post_actions_admin">
+        <div className="post_action hover1" >
+          <button className=" accept_btn  open_signup" onClick={approvePost}>Accept</button>
+        </div>
+        <div className="post_action hover1">
+          <button className="reject_btn  open_signup" style={{ background: "red" }} onClick={rejectPost}>Reject</button>
+        </div>
+      </div>} */}
+
+      rgb(80, 95, 228);

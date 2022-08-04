@@ -78,7 +78,7 @@ export default function Profile({ setVisible, visible }) {
                             <div className="profile_right">
                                 {!visitor && <CreatePost user={user} setVisible={setVisible} />}
                                 <div className="posts">
-                                    {profile.posts && profile.posts.length ? (
+                                    {profile.posts && profile.posts.length? (
                                         profile.posts.map((post) => (
                                             <Post post={post} user={user} key={post._id} profile />
                                         ))

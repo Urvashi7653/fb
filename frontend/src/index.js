@@ -8,6 +8,7 @@ import {legacy_createStore as createStore}  from "redux"
 import {Provider} from "react-redux"
 import {composeWithDevTools } from "redux-devtools-extension"
 import rootReducer from "./reducer";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = createStore(rootReducer,composeWithDevTools());
 //Redux is a predictable state container for JavaScript apps. As the application grows, it becomes difficult to keep it organized and maintain data flow. 

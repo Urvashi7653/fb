@@ -6,9 +6,10 @@ import ReactsPopup from "./ReactsPopup";
 import { useRef, useState, useEffect } from "react";
 import CreateComment from "./CreateComment";
 import PostMenu from "./PostMenu";
-import { comment } from "../../functions/post";
 import Comment from "./Comment";
-export default function Post({ post, user }) {
+
+export default function Post({ admintype, post, user }) {
+  const postId = post._id;
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [comments, setComments] = useState([]);
@@ -20,10 +21,12 @@ export default function Post({ post, user }) {
   useEffect(() => {
     setComments(post?.comments);
   }, [post]);
+
+ 
   return (
-    <div className="post" ref = {postRef}>
+    <div className="post" ref={postRef}>
       <div className="post_header">
-        <Link
+        {!admintype && <Link
           to={`/profile/${post.user.user}`} //we can use post.user.user bcz we populate user in post.js (controllers)
           className="post_header_left"
         >
@@ -31,16 +34,6 @@ export default function Post({ post, user }) {
           <div className="header_col">
             <div className="post_profile_name">
               {post.user.first_name} {post.user.last_name}
-              <div className="updated_p">
-                {post.type == "profilePicture" &&
-                  `updated ${
-                    post.user.gender === "male" ? "his" : "her"
-                  } profile picture`}
-                {post.type == "cover" &&
-                  `updated ${
-                    post.user.gender === "male" ? "his" : "her"
-                  } cover picture`}
-              </div>
             </div>
             <div className="post_profile_privacy_date">
               <Moment fromNow interval={30}>
@@ -49,13 +42,27 @@ export default function Post({ post, user }) {
               . <Public color="#828387" />
             </div>
           </div>
-        </Link>
-        <div
+        </Link>}
+        {admintype && <div>
+          <img src={post.user.picture} alt="" />
+          <div className="header_col">
+            <div className="post_profile_name">
+              {post.user.first_name} {post.user.last_name}
+            </div>
+            <div className="post_profile_privacy_date">
+              <Moment fromNow interval={30}>
+                {post.createdAt}
+              </Moment>
+              . <Public color="#828387" />
+            </div>
+          </div>
+          </div>}
+        {!admintype && <div
           className="post_header_right hover1"
           onClick={() => setShowMenu((prev) => !prev)}
         >
           <Dots color="#828387" />
-        </div>
+        </div>}
       </div>
       {post.background ? (
         <div
@@ -73,12 +80,12 @@ export default function Post({ post, user }) {
                 post.images.length === 1
                   ? "grid_1"
                   : post.images.length === 2
-                  ? "grid_2"
-                  : post.images.length === 3
-                  ? "grid_3"
-                  : post.images.length === 4
-                  ? "grid_4"
-                  : post.images.length >= 5 && "grid_5"
+                    ? "grid_2"
+                    : post.images.length === 3
+                      ? "grid_3"
+                      : post.images.length === 4
+                        ? "grid_4"
+                        : post.images.length >= 5 && "grid_5"
               }
             >
               {post.images.slice(0, 5).map((image, i) => (
@@ -95,7 +102,7 @@ export default function Post({ post, user }) {
       )}
       <div className="post_infos">
         <div className="to_right">
-          <div className="comments_count">13 comments</div>
+          <div className="comments_count">{comments.length} comments</div>
           <div className="share_count">1 share</div>
         </div>
       </div>
@@ -127,11 +134,10 @@ export default function Post({ post, user }) {
         </div>
       </div>
       <div className="comments_wrap">
-        <div className="comments_order"></div>
-        <CreateComment user={user} postId ={post._id} setComments= {setComments} setCount = {setCount}/>
+        {!admintype && <CreateComment user={user} postId={post._id} setComments={setComments} setCount={setCount} />}
         {comments &&
-          comments
-          .sort((a, b) => {
+          [].slice.call(comments)
+            .sort((a, b) => {
               return new Date(b.commentAt) - new Date(a.commentAt);
             })
             .slice(0, count)

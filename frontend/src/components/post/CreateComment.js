@@ -3,7 +3,6 @@ import Picker from "emoji-picker-react";
 import { comment } from "../../functions/post";
 import { uploadImages } from "../../functions/uploadImages";
 import dataURItoBlob from "../../helpers/dataURItoBlob";
-
 import "./style.css";
 
 export default function CreateComment({ user, postId, setComments, setCount }) {
@@ -53,7 +52,6 @@ export default function CreateComment({ user, postId, setComments, setCount }) {
         setCommentImage("");
       } else {
         setLoading(true);
-
         const comments = await comment(postId, text, "", user.token);
         setComments(comments);
         setCount((prev) => ++prev);

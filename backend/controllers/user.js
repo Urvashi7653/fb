@@ -456,7 +456,7 @@ exports.getProfile= async(req,res)=>{
     if (profile.requests.includes(user._id)) {
       friendship.requestSent = true;
     }
-    const posts = await Post.find({user:profile._id}).populate("user").populate(
+    const posts = await Post.find({user:profile._id,approved:true}).populate("user").populate(
       "comments.commentBy",
       "first_name last_name picture username commentAt"
     );

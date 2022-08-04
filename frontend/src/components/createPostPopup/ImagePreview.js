@@ -33,7 +33,7 @@ export default function ImagePreview({
         return;
       } else {
         const reader = new FileReader();
-        reader.readAsDataURL(img);      // read as blob
+        reader.readAsDataURL(img);     
         reader.onload = (readerEvent) => {
           setImages((images) => [...images, readerEvent.target.result]);
         };

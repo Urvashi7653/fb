@@ -16,8 +16,6 @@ export default function ProfilePictureInfos({ profile, visitor }) {
                                 {profile.first_name}
 
                             </div>
-                            <div className="profile_friend_count"></div>
-                            <div className="profile_friend_imgs"></div>
                         </div>
                     </div>
                     {visitor ? <Friendship friendshipp={profile?.friendship} profileid={profile._id} /> : (

@@ -27,6 +27,10 @@ const postSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    adminChecked:{
+      type: Boolean,
+      default: false,
+    },
     comments: [
       {
         comment: {

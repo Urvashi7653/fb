@@ -60,3 +60,18 @@ export const comment = async (postId, comment, image, token) => {
     return error.response.data.message;
   }
 };
+
+export const checkPost = async (postId, status) => {
+  try {
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/approvePosts`,
+      {
+        postId,
+        status
+      },
+    );
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
