@@ -4,9 +4,12 @@ const User = require("../models/User");
 
 exports.validateAdmin = async (req, res) => {
   try {
-    const { password } = req.body;
+    const { username,password } = req.body;
     const adminPassword = await bcrypt.hash("12", 10)
     const check = await bcrypt.compare(password, adminPassword);
+    if(username !== "Admin"){
+      return res.status(400).json({message: "Wrong username"})
+    }
     if (!check) {
       return res.status(400).json({ message: "Incorrect password" });
     }

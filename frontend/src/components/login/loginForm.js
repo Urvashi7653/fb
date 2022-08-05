@@ -109,8 +109,8 @@ export default function LoginForm({ setVisible }) {
                 Create Account
               </button>
             </div>
-            <Link to="/" className="sign_extra">
-              <b>Create a page</b> for a celebrity,brand or business.
+            <Link to="/admin" className="sign_extra">
+              <b>Log in as Admin!</b>Control what users can post. 
             </Link>
           </div>
         </div>
